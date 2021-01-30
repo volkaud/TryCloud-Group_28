@@ -43,15 +43,18 @@ public class TestBase {
 
     public void loginTryCloud() {
         WebElement userNameInputField = xPath("//input[@id='user']");
-        userNameInputField.sendKeys("User28");
+        userNameInputField.clear();
+        userNameInputField.sendKeys(ConfigurationReader.getKeyValue("userName1"));
 
         WebElement passwordInputField = xPath("//input[@id='password']");
-        userNameInputField.sendKeys("Userpass123" + Keys.ENTER);
+        passwordInputField.clear();
+        passwordInputField.sendKeys(ConfigurationReader.getKeyValue("password") + Keys.ENTER);
     }
 
 
     @AfterMethod
     public void teardown() {
+        sleep(3);
         driver.close();
     }
 
