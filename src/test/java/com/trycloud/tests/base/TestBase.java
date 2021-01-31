@@ -21,8 +21,8 @@ public class TestBase {
         driver = WebDriverFactory.getDriver(ConfigurationReader.getKeyValue("browser"));
         driver.manage().window().maximize();
         driver.get(ConfigurationReader.getKeyValue("Environment"));
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
     }
 
@@ -43,15 +43,18 @@ public class TestBase {
 
     public void loginTryCloud() {
         WebElement userNameInputField = xPath("//input[@id='user']");
-        userNameInputField.sendKeys("User28");
+        userNameInputField.clear();
+        userNameInputField.sendKeys(ConfigurationReader.getKeyValue("userName1"));
 
         WebElement passwordInputField = xPath("//input[@id='password']");
-        userNameInputField.sendKeys("Userpass123" + Keys.ENTER);
+        passwordInputField.clear();
+        passwordInputField.sendKeys(ConfigurationReader.getKeyValue("password") + Keys.ENTER);
     }
 
 
     @AfterMethod
     public void teardown() {
+        sleep(5);
         driver.close();
     }
 
