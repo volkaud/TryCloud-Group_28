@@ -20,9 +20,10 @@ public class TestBase {
 
         driver = WebDriverFactory.getDriver(ConfigurationReader.getKeyValue("browser"));
         driver.manage().window().maximize();
-        driver.get(ConfigurationReader.getKeyValue("Environment"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.get(ConfigurationReader.getKeyValue("Environment"));
+
 
     }
 
@@ -55,7 +56,7 @@ public class TestBase {
     @AfterMethod
     public void teardown() {
         sleep(5);
-        driver.close();
+       /* driver.close();*/
     }
 
 
