@@ -55,8 +55,9 @@ public class TestBase {
 
     @AfterMethod
     public void teardown() {
-        sleep(5);
-       /* driver.close();*/
+        sleep(3);
+        driver.close();
+
     }
 
 
