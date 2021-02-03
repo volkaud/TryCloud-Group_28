@@ -45,10 +45,12 @@ public class TestBase {
         WebElement userNameInputField = xPath("//input[@id='user']");
         userNameInputField.clear();
         userNameInputField.sendKeys(ConfigurationReader.getKeyValue("userName1"));
+        sleep(2);
 
         WebElement passwordInputField = xPath("//input[@id='password']");
         passwordInputField.clear();
         passwordInputField.sendKeys(ConfigurationReader.getKeyValue("password") + Keys.ENTER);
+        sleep(2);
     }
 
 
