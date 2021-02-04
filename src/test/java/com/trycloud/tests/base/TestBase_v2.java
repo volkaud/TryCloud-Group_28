@@ -7,8 +7,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +29,7 @@ public class TestBase_v2 {
     loginTryCloud();
   }
 
-  @BeforeClass
+  @AfterClass
   public void tearDownClass(){
     driver.close();
   }
@@ -62,7 +64,9 @@ public class TestBase_v2 {
     return driver.findElements(By.xpath(xpath));
   }
 
-  public WebElement cssSel(String value) { return driver.findElement(By.cssSelector(value));}
+  public WebElement cssSel(String value ){
+    return driver.findElement(By.cssSelector(value));
+  }
 
   public List<WebElement> cssSels(String value) { return driver.findElements(By.cssSelector(value));}
 }
