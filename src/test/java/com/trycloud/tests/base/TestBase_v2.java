@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +21,7 @@ public class TestBase_v2 {
     driver = WebDriverFactory.getDriver(ConfigurationReader.getKeyValue("browser"));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-    driver.get(ConfigurationReader.getKeyValue("Environment"));
+    driver.get(ConfigurationReader.getKeyValue("Environment2"));
     action = new Actions(driver);
     sleep(1);
     loginTryCloud();
@@ -31,7 +29,7 @@ public class TestBase_v2 {
 
   @AfterClass
   public void tearDownClass(){
-    driver.close();
+    //driver.close();
   }
 
   public void sleep(double seconds) {
