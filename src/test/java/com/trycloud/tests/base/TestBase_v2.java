@@ -29,7 +29,7 @@ public class TestBase_v2 {
 
   @AfterClass
   public void tearDownClass(){
-    //driver.close();
+    driver.close();
   }
 
   public void sleep(double seconds) {
