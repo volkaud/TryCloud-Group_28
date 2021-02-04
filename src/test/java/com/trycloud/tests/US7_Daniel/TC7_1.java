@@ -10,7 +10,7 @@ public class TC7_1 extends TestBase {
 
 
     @Test (priority = 1)
-    public void TC7_1(){//doesnt work in test enviornment because it doesnt load
+    public void TC7_1_qa3Env(){//qa3Env
         //1. Login as a user
         loginTryCloud();
 
@@ -21,7 +21,10 @@ public class TC7_1 extends TestBase {
         sleep(3);
 
         //3. Search any existing file/folder/user name
-        magnifyingGlassIcon.sendKeys("Daniel" + Keys.ENTER); //I created a folder Daniel Bobaniel that it should see
+        WebElement inputSearchField = xPath("//div//form//input");
+
+
+        inputSearchField.sendKeys("Daniel" + Keys.ENTER); //I created a folder Daniel Bobaniel that it should see
         sleep(3);
         //4. Verify the app displays the expected result option
         WebElement firstVisibleFolderInSearchTable = xPath("//tbody//tr[2]//td[2]");
