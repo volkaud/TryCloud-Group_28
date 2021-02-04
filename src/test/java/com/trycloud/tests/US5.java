@@ -113,5 +113,7 @@ public class US5 extends TestBase_v2 {
               )).getText();
       Assert.assertTrue(contactNames.contains(currentName), "Fail to add contact by name: " + currentName);
     }
+
+    // Added new function
   }
 }
