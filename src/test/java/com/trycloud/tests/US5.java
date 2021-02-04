@@ -3,17 +3,15 @@ package com.trycloud.tests;
 import com.github.javafaker.Faker;
 import com.trycloud.tests.base.TestBase_v2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class US5 extends TestBase_v2 {
 
-  List<String> contactNames = new ArrayList<String>();
+  List<String> contactNames = new ArrayList<>();
 
   @Test
   //Test case #1 - verify users can access to Talks module
@@ -21,10 +19,7 @@ public class US5 extends TestBase_v2 {
   //  1.Login as a user
     // **********  already logged in from @BeforeClass
   //  2.Click “Contacts” module
-    WebElement target = xPath("//ul[@id='appmenu']");
-    action.moveToElement(target).perform();
-    sleep(1);
-    xPath("//ul[@id='appmenu']//span[contains(text(), 'Contacts')]").click();
+    cssSel("li[data-id='contacts']").click();
   //  3.Verify the page tile is Contents module’s tile
     String expectedTitle = "Contacts";
     String actualTitle = driver.getTitle();
@@ -49,13 +44,23 @@ public class US5 extends TestBase_v2 {
 
   private String createContact(){
     // 3.Click “New Contact” button
-    xPath("//div[@id='app-navigation-vue']/a").click();
-    sleep(1);
-    xPath("//button[@id='new-contact-button']").click();
-    sleep(1);
+    WebElement menue = xPath("//a[@class='app-navigation-toggle']");
+    WebElement newContButton = xPath("//button[@id='new-contact-button']");
+    if(!newContButton.isDisplayed()){
+      action.moveToElement(menue).perform();
+      sleep(1);
+      menue.click();
+      sleep(1);
+    }
+    newContButton.click();
     // 4.Fill out the contact info like : Title, Phone, email, address , etc
     Faker faker = new Faker();
+    sleep(1);
     String fullName = faker.name().fullName();
+    WebElement nameInput = xPath("//input[@id='contact-fullname']");
+    nameInput.clear();
+    sleep(1);
+    nameInput.sendKeys(fullName);
     sleep(1);
     xPath("//input[@id='contact-org']").sendKeys(
             faker.company().name()
@@ -64,8 +69,6 @@ public class US5 extends TestBase_v2 {
     xPath("//input[@id='contact-title']").sendKeys(
             faker.name().title()
     );
-    sleep(1);
-    xPath("//input[@id='contact-fullname']").sendKeys(fullName);
     sleep(1);
     xPath("//input[@inputmode='tel']").sendKeys(faker.phoneNumber().cellPhone());
     sleep(1);
@@ -88,7 +91,7 @@ public class US5 extends TestBase_v2 {
     );
     sleep(1);
     xPath("//div[contains(text(), 'Country')]/following-sibling::input").sendKeys(
-            faker.address().country() + Keys.ENTER
+            faker.address().country()
     );
     return fullName;
   }
@@ -101,8 +104,10 @@ public class US5 extends TestBase_v2 {
     // 2.Click contacts module
     // ********** already clicked in TC5_1()
     // create some contacts
-    contactNames.add(createContact());
-    contactNames.add(createContact());
+    String name = createContact();
+    contactNames.add(name);
+    name = createContact();
+    contactNames.add(name);
     // 3.Verify the contact names are in the list
     List<WebElement> contacts = xPathList(
             "//div[@class='vue-recycle-scroller__item-wrapper']/div"
